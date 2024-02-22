@@ -1,0 +1,16 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+kernel = np.ones((5,5), np.uint8)
+print(kernel)
+path = "/content/hyundai-grand-i10-nios-facelift3.jpg"
+img = cv2.imread(path)
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur = cv2.GaussianBlur(imgGray, (7,7), 0)
+imgCanny = cv2.Canny(imgBlur, 100, 200)
+imgDilation = cv2.dilate(imgCanny, kernel, iterations=10)
+imgEroded = cv2.erode(imgDilation, kernel, iterations=2)
+
+# Display the image using cv2_imshow instead of cv2.imshow
+cv2_imshow(imgEroded)
