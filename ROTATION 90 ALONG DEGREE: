@@ -1,0 +1,10 @@
+import cv2
+from google.colab.patches import cv2_imshow  # Import cv2_imshow for Colab
+
+path = r"/content/hyundai-grand-i10-nios-facelift3.jpg"  # Corrected raw string literal
+src = cv2.imread(path)
+window_name = 'Image'
+image = cv2.rotate(src, cv2.ROTATE_180)
+
+cv2_imshow(image)  # Use cv2_imshow to display the image in Colab
+# cv2.waitKey(0)  # This line is not necessary in Colab and can be removed
