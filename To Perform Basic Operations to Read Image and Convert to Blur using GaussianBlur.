@@ -1,0 +1,13 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow  # Make sure to import cv2_imshow
+
+kernel = np.ones((5,5),np.uint8)
+print(kernel)
+path = "/content/hyundai-grand-i10-nios-facelift3.jpg"
+img = cv2.imread(path)
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur = cv2.GaussianBlur(imgGray, (7,7), 0)
+
+cv2_imshow(imgBlur)  # Use cv2_imshow to display the image
+cv2.waitKey(0)  # This line can be removed as it's not needed in Colab
