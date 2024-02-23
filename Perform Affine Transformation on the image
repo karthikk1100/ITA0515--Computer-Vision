@@ -1,0 +1,24 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+# read the input image
+img = cv2.imread("/content/hyundai-grand-i10-nios-facelift3.jpg")
+
+# access the image height and width
+rows, cols, _ = img.shape
+
+# define three points on the input image
+pts1 = np.float32([[50, 50], [200, 50], [50, 200]])
+
+# define three points corresponding location to output image
+pts2 = np.float32([[10, 100], [200, 50], [100, 250]])
+
+# get the affine transformation matrix
+M = cv2.getAffineTransform(pts1, pts2)
+
+# apply affine transformation on the input image
+dst = cv2.warpAffine(img, M, (cols, rows))
+
+# use cv2_imshow() to display the image in Colab
+cv2_imshow(dst)
