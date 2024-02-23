@@ -1,0 +1,26 @@
+import cv2
+
+# Load the image from file
+image = cv2.imread('/content/hyundai-grand-i10-nios-facelift3.jpg')
+
+# Option 1: Using cv2.rotate() to rotate the image by 270 degrees (90 degrees counterclockwise)
+rotated_image = cv2.rotate(image, cv2.ROTATE_90_COUNTERCLOCKWISE)
+
+# Option 2: Using cv2.getRotationMatrix2D() and cv2.warpAffine()
+# Get the height and width of the image
+(h, w) = image.shape[:2]
+
+# Calculate the center of the image
+center = (w // 2, h // 2)
+
+# Get the rotation matrix for rotating the image by 270 degrees
+M = cv2.getRotationMatrix2D(center, angle=270, scale=1)
+
+# Perform the rotation
+rotated_image = cv2.warpAffine(image, M, (w, h))
+
+# Save or display the rotated image
+cv2.imwrite('rotated_image.jpg', rotated_image)
+# cv2.imshow('Rotated Image', rotated_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
