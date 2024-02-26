@@ -1,0 +1,39 @@
+import cv2
+import numpy as np
+from google.colab import files
+from google.colab.patches import cv2_imshow
+
+# Upload destination image using Colab interface
+uploaded = files.upload()
+
+# Check if the destination image file is uploaded
+if len(uploaded.keys()) == 0:
+    print("Error: No file uploaded. Please upload the destination image.")
+else:
+    # Get the filename of the uploaded image
+    filename = next(iter(uploaded))
+
+    # Read source image
+    im_src = cv2.imread("/content/naturee.jfif")
+    # Four corners of the book in source image
+    pts_src = np.array([[141, 131], [480, 159], [493, 630], [64, 601]])
+
+    # Read destination image
+    im_dst = cv2.imread("/content/" + filename)
+    
+    # Check if the destination image is loaded successfully
+    if im_dst is None:
+        print("Error: Unable to load the destination image.")
+    else:
+        # Four corners of the book in destination image
+        pts_dst = np.array([[318, 256], [534, 372], [316, 670], [73, 473]])
+
+        # Calculate Homography
+        h, status = cv2.findHomography(pts_src, pts_dst)
+        # Warp source image to destination based on homography
+        im_out = cv2.warpPerspective(im_src, h, (im_dst.shape[1], im_dst.shape[0]))
+
+        # Display images
+        cv2_imshow(im_src)
+        cv2_imshow(im_dst)
+        cv2_imshow(im_out)

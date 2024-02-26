@@ -1,0 +1,14 @@
+# Define corresponding points
+pts1 = np.array([[50, 50], [200, 50], [50, 200], [200, 200]])
+pts2 = np.array([[100, 100], [300, 100], [100, 300], [300, 300]])
+
+# Estimate projective transformation matrix using DLT
+H, _ = cv2.findHomography(pts1, pts2)
+
+# Apply projective transformation to img1
+dst = cv2.warpPerspective(img1, H, (img2.shape[1], img2.shape[0]))
+
+# Display images
+cv2_imshow(img1)
+cv2_imshow(img2)
+cv2_imshow(dst)

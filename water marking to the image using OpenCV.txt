@@ -1,0 +1,35 @@
+import cv2
+from google.colab.patches import cv2_imshow
+
+# Read the original image and watermark
+img = cv2.imread("/content/naturee.jfif") 
+wm = cv2.imread("/content/logo.jpg") 
+
+# Get the dimensions of the watermark
+h_wm, w_wm = wm.shape[:2] 
+
+# Get the dimensions of the original image
+h_img, w_img = img.shape[:2] 
+
+# Calculate the position to place the watermark at the center of the image
+center_x = int(w_img / 2) 
+center_y = int(h_img / 2) 
+top_y = center_y - int(h_wm / 2) 
+left_x = center_x - int(w_wm / 2) 
+bottom_y = top_y + h_wm 
+right_x = left_x + w_wm 
+
+# Extract the region of interest (ROI) from the original image
+roi = img[top_y:bottom_y, left_x:right_x] 
+
+# Resize the watermark image to match the size of the ROI
+wm_resized = cv2.resize(wm, (roi.shape[1], roi.shape[0]))
+
+# Blend the resized watermark with the ROI using addWeighted
+result = cv2.addWeighted(roi, 1, wm_resized, 0.3, 0) 
+
+# Replace the ROI with the watermarked result
+img[top_y:bottom_y, left_x:right_x] = result 
+
+# Display the watermarked image using cv2_imshow
+cv2_imshow(img)

@@ -1,0 +1,18 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+# Define kernel for morphological operations
+kernel = np.ones((5,5), np.uint8)
+
+# Read the image
+img = cv2.imread("/content/naturee.jfif", cv2.IMREAD_COLOR)
+
+# Resize the image
+img = cv2.resize(img, (600, 600))
+
+# Display the image
+cv2_imshow(img)
+
+# Wait for a key press
+cv2.waitKey(0)

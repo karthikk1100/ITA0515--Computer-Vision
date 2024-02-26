@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+# Load the video
+cap = cv2.VideoCapture("/content/30 seconds whatsapp status nature videos..mp4")
+
+# Check if the video opened successfully
+if not cap.isOpened():
+    print("Error opening video file")
+
+# Read and display the video frames
+while cap.isOpened():
+    ret, frame = cap.read()
+    if ret:
+        # Display the frame
+        cv2_imshow(frame)
+        
+        # Wait for a short period of time. If you want to slow down the video, increase the number.
+        cv2.waitKey(25)
+        
+        # Clear the output after each frame. Uncomment the line below if you want to clear the previous frame.
+        # clear_output(wait=True)
+    else:
+        break
+
+# When everything done, release the video capture object
+cap.release()

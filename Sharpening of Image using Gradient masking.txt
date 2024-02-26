@@ -1,0 +1,32 @@
+import cv2
+import numpy as np
+
+# Read the image
+a = cv2.imread("/content/naturee.jpg")
+
+# Convert the image to grayscale
+gray_a = cv2.cvtColor(a, cv2.COLOR_BGR2GRAY)
+
+# Define Laplacian kernel
+laplacian_kernel = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]])
+
+# Perform convolution using OpenCV's filter2D function
+a1 = cv2.filter2D(gray_a, -1, laplacian_kernel)
+
+# Convert the result to uint8
+a2 = np.uint8(a1)
+
+# Display the result
+cv2_imshow(a2)
+
+# Define another Laplacian kernel
+laplacian_kernel2 = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
+
+# Perform convolution using OpenCV's filter2D function
+a3 = cv2.filter2D(gray_a, -1, laplacian_kernel2)
+
+# Convert the result to uint8
+a4 = np.uint8(a3)
+
+# Display the result
+cv2_imshow(a4)
