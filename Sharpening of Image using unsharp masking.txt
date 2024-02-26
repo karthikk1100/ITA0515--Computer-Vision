@@ -1,0 +1,26 @@
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+# Read the image
+img = cv2.imread("/content/naturee.jfif")
+
+# Convert the image to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Define the Laplacian kernel
+laplacian_kernel = np.array([[0, 1, 0],
+                             [1, -4, 1],
+                             [0, 1, 0]])
+
+# Apply the Laplacian filter
+laplacian = cv2.filter2D(gray, -1, laplacian_kernel)
+
+# Add the Laplacian result to the original image to sharpen it
+sharpened = cv2.add(gray, laplacian)
+
+# Display the original and sharpened images
+cv2_imshow(gray)
+cv2_imshow(sharpened)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
