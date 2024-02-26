@@ -1,0 +1,18 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow  # Import the replacement function for cv2.imshow()
+
+kernel = np.ones((5,5), np.uint8)
+print(kernel)
+
+path = "/content/natureeeee.jpg"
+img = cv2.imread(path)
+
+# Check if the image was loaded properly
+if img is not None:
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    imgBlur = cv2.GaussianBlur(imgGray, (7, 7), 0)
+    imgCanny = cv2.Canny(imgBlur, 100, 200)
+    cv2_imshow(imgCanny)  # Use cv2_imshow instead of cv2.imshow
+else:
+    print("Error: Image not found. Check the file path.")
